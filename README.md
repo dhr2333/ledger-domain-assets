@@ -5,7 +5,7 @@
 精简，保留其科目命名习惯，并按本地 Core 的写入模型做了两处调整：
 
 1. **Core 只写 `trans/main.bean`。** 所有交易、`balance`、`pad` 都由 Core 追加到这个文件；不再按 `YYYY/MM.bean` 分月写入。
-2. **账户显式声明。** 起步只放最常用的 19 个账户，并带 `alias` / `reconcile` metadata；不启用 `auto_accounts`，避免隐式账户绕过账户管理。
+2. **账户显式声明。** 支出/收入/权益固定使用 Beancount-Trans-Assets 的科目树；资产/负债只放最小起步集，更多银行卡/信用卡由 setup 手工扩展。不启用 `auto_accounts`，避免隐式账户绕过账户管理。
 
 ## 目录
 
@@ -38,11 +38,13 @@ fava main.bean   # 可选，只读报表
 
 起步账户：
 
-- 资产：现金、工资卡、支付宝、余额宝、微信、零钱通
-- 负债：信用卡
-- 支出：餐饮、交通、房租、水电、购物、娱乐、医疗、其他支出
-- 收入：工资、其他收入
-- 权益：期初余额、调整
+- 资产（6）：现金、工资卡、支付宝、余额宝、微信、零钱通
+- 负债（1）：信用卡
+- 支出（29）：使用 Assets 的完整支出科目树
+- 收入（17）：使用 Assets 的完整收入科目树
+- 权益（2）：期初余额、调整
+
+资产/负债没有照搬 Backend 的“自动创建”：Backend 在数据库里创建子账户时自动补父账户，是平台行为；Beancount 不要求父账户 `open`。MVP0 只给最小资产/负债集，新增银行卡/信用卡在 `account/assets.bean` / `account/liabilities.bean` 里 setup，不做运行时自动创建。
 
 需要新账户时，在对应 `account/*.bean` 里按同样的 `open` 格式添加；账户名沿用
 Beancount-Trans-Assets 的科目树，例如 `Assets:Savings:Bank:Ningbo`。
