@@ -18,7 +18,7 @@
 |---|---|---|
 | 记交易 | Core `submit-draft` → DSH 面板 `approve-draft` → `trans/collect.bean` | 有 |
 | 对账余额 | Core 生成 `balance` / `pad` → `trans/reconciliation.bean` | 有 |
-| 账户 / 别名 / 对账周期 | Core 的 account/metadata 接口（后续切片）；人通过 DSH 确认 | 人确认 |
+| 账户 / 别名 / 对账周期 | Core `metadata`（MVP-0）；人通过 DSH 编辑 | 人确认 |
 | 查询 | 只读 BQL / `bean-query` | 只读 |
 
 ## 硬规则
@@ -33,7 +33,7 @@
 
 ## 当前阶段
 
-- MVP-0：手动记账 → 审核 → 写入 `trans/collect.bean`；只读 BQL。
+- MVP-0：DSH 初始化 → 账户 alias/reconcile → 手动记账/审核 → `trans/collect.bean`；只读 BQL。
 - MVP-1：Core 对账 `balance + pad`，写入 `trans/reconciliation.bean`。
 
 ## 排查
