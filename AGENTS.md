@@ -2,12 +2,13 @@
 
 本目录是 **Beancount 账本**，不是代码仓库。账本文件是唯一真相源。
 
-## 唯一写入目标
+## 唯一写者
 
-- **`trans/main.bean` 是唯一写入目标。**
-- 所有交易、`balance`、`pad` 必须由 `ledger-domain-core` 生成，并追加到 `trans/main.bean`。
+- **`ledger-domain-core` 负责整个账本的写入。**
+- 交易、`balance`、`pad` 追加到 `trans/main.bean`。
+- `main.bean` / `account/*.bean` 的结构与账户变更也由 Core 写。
 - **禁止**直接编辑 `main.bean`、`account/*.bean`、`trans/main.bean`、`.ledger/*`。
-- **唯一例外：人做 setup 时可以改 `main.bean` 与 `account/*.bean`；Agent 不得做，Core 不写。**
+- 初始模板创建是 bootstrap，不属于运行时写入；之后所有 `.bean` 写入走 Core。
 - 禁止把 `trans/` 当成平台写入区；这里没有 Beancount-Trans Backend，也没有 `trans/collect.bean`。
 
 ## 写入路径
@@ -16,16 +17,16 @@
 |---|---|---|
 | 记交易 | Core `submit-draft` → DSH 面板 `approve-draft` | 有 |
 | 对账余额 | Core 生成 `balance`（MVP-1 起同时生成 `pad`） | 有 |
-| 账户 / 别名 / 对账周期 | setup 在 `account/*.bean` 人工维护；Core 只读 | 人确认 |
+| 账户 / 别名 / 对账周期 | Core 的 account/metadata 接口（后续切片）；人通过 DSH 确认 | 人确认 |
 | 查询 | 只读 BQL / `bean-query` | 只读 |
 
 ## 硬规则
 
-1. **日常永不直接改账本文件。** 交易/对账写入走 Core；`main.bean` / `account/*.bean` 只在 setup 时由人维护，Agent 不得做。
+1. **永不直接改账本文件。** 所有 `.bean` 写入走 Core；`main.bean` / `account/*.bean` 也一样。
 2. **交易只进草稿队列。** 草稿出现 `unresolved_account` / `before_account_open` / `closed_account` / `unbalanced` 时停下来报告，不要自己补科目或改金额。
 3. **对账只走 Core，且只对资产/负债。** 不要手写 `balance` 或 `pad`；差额由 Core 按 `balance + pad` 生成。支出/收入/权益不参与对账。
 4. **查询只读。** BQL 只能是 `SELECT`；不得用查询结果反推写入。
-5. **账户显式。** 新账户在 `account/*.bean` 里按同一格式声明；不要依赖隐式账户。
+5. **账户显式。** 新账户走 Core 的 account-open（后续切片）；MVP-0 不手工加账户，不要依赖隐式账户。
 6. **不删除审计。** `.ledger/` 是 Core 运行态；不要删除草稿、审计或锁文件。
 7. **不提交运行态。** `.ledger/`、`.venv/` 已在 `.gitignore`。
 
