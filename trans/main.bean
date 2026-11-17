@@ -1,3 +1,4 @@
-; ledger-domain-core 的唯一写入目标。
-; 所有交易、balance、pad 由 Core 生成并追加到这里。
-; 不要手动编辑；需要修改请走 Core / DSH。
+; trans 索引：只 include 条目与对账两个文件。
+; 不要在这里写交易；Core 只追加到 collect.bean / reconciliation.bean。
+include "collect.bean"
+include "reconciliation.bean"

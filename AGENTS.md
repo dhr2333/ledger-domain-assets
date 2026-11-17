@@ -5,18 +5,19 @@
 ## 唯一写者
 
 - **`ledger-domain-core` 负责整个账本的写入。**
-- 交易、`balance`、`pad` 追加到 `trans/main.bean`。
+- 交易追加到 `trans/collect.bean`；`balance` / `pad` 追加到 `trans/reconciliation.bean`。
+- `trans/main.bean` 只 include 这两个文件，不写交易。
 - `main.bean` / `account/*.bean` 的结构与账户变更也由 Core 写。
-- **禁止**直接编辑 `main.bean`、`account/*.bean`、`trans/main.bean`、`.ledger/*`。
+- **禁止**直接编辑 `main.bean`、`account/*.bean`、`trans/*.bean`、`.ledger/*`。
 - 初始模板创建是 bootstrap，不属于运行时写入；之后所有 `.bean` 写入走 Core。
-- 禁止把 `trans/` 当成平台写入区；这里没有 Beancount-Trans Backend，也没有 `trans/collect.bean`。
+- `trans/collect.bean` 是 Core 的条目目标，不是平台写入区；这里没有 Beancount-Trans Backend。
 
 ## 写入路径
 
 | 操作 | 路径 | 人工确认 |
 |---|---|---|
-| 记交易 | Core `submit-draft` → DSH 面板 `approve-draft` | 有 |
-| 对账余额 | Core 生成 `balance`（MVP-1 起同时生成 `pad`） | 有 |
+| 记交易 | Core `submit-draft` → DSH 面板 `approve-draft` → `trans/collect.bean` | 有 |
+| 对账余额 | Core 生成 `balance` / `pad` → `trans/reconciliation.bean` | 有 |
 | 账户 / 别名 / 对账周期 | Core 的 account/metadata 接口（后续切片）；人通过 DSH 确认 | 人确认 |
 | 查询 | 只读 BQL / `bean-query` | 只读 |
 
@@ -32,11 +33,11 @@
 
 ## 当前阶段
 
-- MVP-0：手动记账 → 审核 → 写入 `trans/main.bean`；只读 BQL。
-- MVP-1：Core 对账 `balance + pad`，写入同一文件。
+- MVP-0：手动记账 → 审核 → 写入 `trans/collect.bean`；只读 BQL。
+- MVP-1：Core 对账 `balance + pad`，写入 `trans/reconciliation.bean`。
 
 ## 排查
 
 - `bean-check main.bean` 失败时，先看错误里的文件名和行号；不要靠猜。
-- 账本结构是 `main.bean` → `account/*.bean` → `trans/main.bean`；`trans/main.bean` 为空是正常的。
+- 账本结构是 `main.bean` → `account/*.bean` + `trans/main.bean`；`trans/main.bean` 只 include `collect.bean` 与 `reconciliation.bean`。
 - 写入失败时 Core 会返回 `code/message/details`；按错误码处理，不要绕过 Core 直接改文件。

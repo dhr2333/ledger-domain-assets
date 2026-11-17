@@ -4,7 +4,7 @@
 [Beancount-Trans-Assets](https://github.com/Beancount-Trans/Beancount-Trans-Assets)
 精简，保留其科目命名习惯，并按本地 Core 的写入模型做了两处调整：
 
-1. **Core 负责整个账本的写入。** 交易、`balance`、`pad` 追加到 `trans/main.bean`；`main.bean` / `account/*.bean` 的结构与账户变更也由 Core 写。不再按 `YYYY/MM.bean` 分月写入。
+1. **Core 负责整个账本的写入。** 交易追加到 `trans/collect.bean`，`balance` / `pad` 追加到 `trans/reconciliation.bean`；`trans/main.bean` 只 include 这两个文件。`main.bean` / `account/*.bean` 的结构与账户变更也由 Core 写。不再按 `YYYY/MM.bean` 分月写入。
 2. **账户显式声明。** 支出/收入/权益固定使用 Beancount-Trans-Assets 的科目树；资产/负债只放最小起步集，更多银行卡/信用卡由 setup 手工扩展。不启用 `auto_accounts`，避免隐式账户绕过账户管理。
 
 ## 目录
@@ -19,7 +19,9 @@
 │   ├── income.bean
 │   └── equity.bean
 ├── trans/
-│   └── main.bean          # 交易/对账追加目标（Core 写，不要手改）
+│   ├── main.bean          # 只 include collect + reconciliation
+│   ├── collect.bean       # 交易条目（Core 写）
+│   └── reconciliation.bean # balance / pad（Core 写）
 ├── document/              # 单据附件目录
 ├── AGENTS.md              # Agent 写入规则
 └── LICENSE
@@ -56,14 +58,14 @@ Beancount-Trans-Assets 的科目树，例如 `Assets:Savings:Bank:Ningbo`。
 
 ## 状态
 
-本模板按“Core 负责整个账本写入、交易/对账追加到 `trans/main.bean`”的目标模型建立。
+本模板按“Core 负责整个账本写入、条目/对账分文件”的目标模型建立。
 当前 `ledger-domain-core` 仍按 `YYYY/MM.bean` 分月写入，下一步需要把
-`target.py` / `drafts.py` 切换到 `trans/main.bean`；在切换完成前，面板手动记账
-会报 `year_not_managed`。
+`target.py` / `drafts.py` 切换到 `trans/collect.bean` 与
+`trans/reconciliation.bean`；在切换完成前，面板手动记账会报 `year_not_managed`。
 
 ## 写入规则
 
-- **不要手动编辑任何 `.bean`**；Core 负责整个账本写入，草稿审批、对账 `balance` / `pad` 追加到 `trans/main.bean`，账户/结构变更也走 Core。
+- **不要手动编辑任何 `.bean`**；Core 负责整个账本写入，交易追加到 `trans/collect.bean`，对账 `balance` / `pad` 追加到 `trans/reconciliation.bean`，账户/结构变更也走 Core。
 - 交易先入 Core 草稿队列，再由人在 DSH 面板批准。
 - `main.bean` / `account/*.bean` 是账户与结构配置，不是日常写入目标。
 - Agent 规则见 [AGENTS.md](AGENTS.md)。

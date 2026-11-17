@@ -2,9 +2,10 @@
 ; 本地 Beancount 账本模板，供 ledger-domain-core 使用。
 ;
 ; 写入规则：
-; - Core 只写 trans/main.bean；交易、balance、pad 都由 Core 追加。
-; - main.bean 与 account/*.bean 是账户/结构配置，不作为日常写入目标。
-; - 不要手动编辑 trans/main.bean。
+; - Core 负责整个账本；交易追加到 trans/collect.bean，对账追加到 trans/reconciliation.bean。
+; - trans/main.bean 只是这两个文件的 include 索引。
+; - main.bean 与 account/*.bean 是账户/结构配置，由 Core 在结构变更时写。
+; - 不要手动编辑任何 .bean。
 
 ; 1. 账本元数据
 option "title" "我的账本"
@@ -24,5 +25,5 @@ include "account/expenses.bean"
 include "account/income.bean"
 include "account/equity.bean"
 
-; 3. 交易：Core 的唯一写入目标
+; 3. 条目与对账：trans/main.bean 只 include collect + reconciliation
 include "trans/main.bean"
