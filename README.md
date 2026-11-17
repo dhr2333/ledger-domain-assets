@@ -27,17 +27,13 @@
 └── LICENSE
 ```
 
-## Git 可选
+## Git 暂不考虑
 
-新账本不需要 Git；Core 与 DSH 只依赖本地文件，账本目录复制/网盘同步也能用。Git 是
-可选的版本与备份层，不是运行依赖。
+MVP 暂不集成 Git。账本目录直接放在本地，由文件系统/网盘/其他方式备份；Core 与 DSH
+不依赖 `.git`。模板仓库自身的 Git 只用于分发，不代表用户账本必须用 Git。
 
-如果启用 Git：`main.bean` include `trans/main.bean`，后者再 include `collect.bean` 与
-`reconciliation.bean`。三个文件必须被跟踪，否则 fresh clone 后 include 会失败；
-`collect.bean` / `reconciliation.bean` 还是交易与对账的唯一真相。所以启用 Git 时
-`.gitignore` 不能忽略 `trans/`；三个文件即使暂时为空，也带注释头一起提交。
-
-如果不启用 Git：三个文件仍必须存在并被 include，由文件系统/网盘/其他备份覆盖。
+`trans/main.bean`、`collect.bean`、`reconciliation.bean` 仍必须存在并被 include；
+它们即使暂时为空，也带注释头一起保留。
 
 ## 使用
 
@@ -46,7 +42,7 @@ bean-check main.bean
 fava main.bean   # 可选，只读报表
 ```
 
-把 `ledger-domain-core` 的 `root` 指向这个账本目录；DSH 账本面板会通过 Core 读写。Git 可有可无。
+把 `ledger-domain-core` 的 `root` 指向这个账本目录；DSH 账本面板会通过 Core 读写。初始化由 Core 读本模板完成，DSH 不提供初始化；MVP 不集成 Git。
 
 ## 账户
 
@@ -58,13 +54,13 @@ fava main.bean   # 可选，只读报表
 - 收入（17）：使用 Assets 的完整收入科目树
 - 权益（2）：期初余额、调整
 
-资产/负债没有照搬 Backend 的“自动创建”：Backend 在数据库里创建子账户时自动补父账户，是平台行为；Beancount 不要求父账户 `open`。MVP0 只给最小资产/负债集；新增银行卡/信用卡走 Core 的 account-open（后续切片），不在运行期手工加，也不做自动创建。
+资产/负债没有照搬 Backend 的“自动创建”：Backend 在数据库里创建子账户时自动补父账户，是平台行为；Beancount 不要求父账户 `open`。MVP0 只给最小资产/负债集；新增银行卡/信用卡走 Core 的 account-open（MVP-0），不在运行期手工加，也不做自动创建。
 
 `reconcile` metadata 只出现在资产/负债账户；支出/收入/权益不参与对账，也不配 `reconcile`。
 
 账户 alias / reconcile 由 DSH 账户页调用 Core `metadata` 编辑。
-需要新账户时走 Core 的 account-open（后续切片）；账户名沿用
-Beancount-Trans-Assets 的科目树，例如 `Assets:Savings:Bank:Ningbo`。MVP-0 先用模板里的账户。
+需要新账户时走 Core 的 account-open（MVP-0）；账户名沿用
+Beancount-Trans-Assets 的科目树，例如 `Assets:Savings:Bank:Ningbo`。
 
 账户的 `open` 日期目前是模板创建日（2026-11-17）。初始化账本时按真实起始日调整；
 运行期不要手改，后续由 Core 的账户接口处理。

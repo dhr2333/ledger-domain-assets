@@ -19,6 +19,7 @@
 | 记交易 | Core `submit-draft` → DSH 面板 `approve-draft` → `trans/collect.bean` | 有 |
 | 对账余额 | Core 生成 `balance` / `pad` → `trans/reconciliation.bean` | 有 |
 | 账户 / 别名 / 对账周期 | Core `metadata`（MVP-0）；人通过 DSH 编辑 | 人确认 |
+| 新增账户 | Core `account-open`（MVP-0）→ `account/*.bean` | 人确认 |
 | 查询 | 只读 BQL / `bean-query` | 只读 |
 
 ## 硬规则
@@ -27,13 +28,13 @@
 2. **交易只进草稿队列。** 草稿出现 `unresolved_account` / `before_account_open` / `closed_account` / `unbalanced` 时停下来报告，不要自己补科目或改金额。
 3. **对账只走 Core，且只对资产/负债。** 不要手写 `balance` 或 `pad`；差额由 Core 按 `balance + pad` 生成。支出/收入/权益不参与对账。
 4. **查询只读。** BQL 只能是 `SELECT`；不得用查询结果反推写入。
-5. **账户显式。** 新账户走 Core 的 account-open（后续切片）；MVP-0 不手工加账户，不要依赖隐式账户。
+5. **账户显式。** 新账户走 Core 的 account-open（MVP-0）；不要手工加账户，也不要依赖隐式账户。
 6. **不删除审计。** `.ledger/` 是 Core 运行态；不要删除草稿、审计或锁文件。
 7. **不提交运行态。** `.ledger/`、`.venv/` 已在 `.gitignore`。
 
 ## 当前阶段
 
-- MVP-0：DSH 初始化 → 账户 alias/reconcile → 手动记账/审核 → `trans/collect.bean`；只读 BQL。
+- MVP-0：Core 初始化 → 账户 alias/reconcile/新增 → 手动记账/审核 → `trans/collect.bean`；只读 BQL。
 - MVP-1：Core 对账 `balance + pad`，写入 `trans/reconciliation.bean`。
 
 ## 排查
