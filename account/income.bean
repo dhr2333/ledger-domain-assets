@@ -1,0 +1,7 @@
+; 收入。起步只保留工资与其他收入；需要时扩展。
+
+2026-11-17 open Income:Active:Salary CNY
+  alias: "工资"
+
+2026-11-17 open Income:Other CNY
+  alias: "其他收入"

@@ -1,0 +1,7 @@
+; 权益。对账差额、期初余额都落在这里。
+
+2026-11-17 open Equity:Opening-Balances CNY
+  alias: "期初余额"
+
+2026-11-17 open Equity:Adjustments CNY
+  alias: "调整"

@@ -1,0 +1,3 @@
+; ledger-domain-core 的唯一写入目标。
+; 所有交易、balance、pad 由 Core 生成并追加到这里。
+; 不要手动编辑；需要修改请走 Core / DSH。

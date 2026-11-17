@@ -1,0 +1,27 @@
+; 资产。命名沿用 Beancount-Trans-Assets 的科目树。
+; 起步只保留最常用的现金、工资卡、支付宝/微信；需要时按同一命名扩展。
+
+2026-11-17 open Assets:Savings:Cash CNY
+  alias: "现金"
+  reconcile: "weekly"
+
+2026-11-17 open Assets:Savings:Bank:Main CNY
+  alias: "工资卡"
+  reconcile: "monthly"
+
+2026-11-17 open Assets:Savings:Web:AliPay CNY
+  alias: "支付宝"
+
+2026-11-17 open Assets:Savings:Web:AliFund CNY
+  alias: "余额宝"
+
+2026-11-17 open Assets:Savings:Web:WechatPay CNY
+  alias: "微信"
+
+2026-11-17 open Assets:Savings:Web:WechatFund CNY
+  alias: "零钱通"
+
+; 可选：多张银行卡/信用卡时，按 Assets 的命名继续加：
+; 2000-01-01 open Assets:Savings:Bank:Ningbo CNY
+;   alias: "宁波银行"
+;   reconcile: "monthly"

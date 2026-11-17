@@ -1,0 +1,25 @@
+; 支出。起步只保留最常用的类目；跨类目（教育、育儿、宠物、装修等）用标签记录。
+
+2026-11-17 open Expenses:Food CNY
+  alias: "餐饮"
+
+2026-11-17 open Expenses:TransPort:Public CNY
+  alias: "交通"
+
+2026-11-17 open Expenses:Home:Rent CNY
+  alias: "房租"
+
+2026-11-17 open Expenses:Home:Utilities CNY
+  alias: "水电"
+
+2026-11-17 open Expenses:Shopping CNY
+  alias: "购物"
+
+2026-11-17 open Expenses:Culture:Entertainment CNY
+  alias: "娱乐"
+
+2026-11-17 open Expenses:Health:Medical CNY
+  alias: "医疗"
+
+2026-11-17 open Expenses:Other CNY
+  alias: "其他支出"

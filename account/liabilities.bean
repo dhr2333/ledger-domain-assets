@@ -1,0 +1,10 @@
+; 负债。起步只保留一张信用卡；多张卡按同一命名扩展。
+
+2026-11-17 open Liabilities:CreditCard:Main CNY
+  alias: "信用卡"
+  reconcile: "monthly"
+
+; 可选：支付宝花呗/抖音月付等
+; 2000-01-01 open Liabilities:CreditCard:Web:AliPay CNY
+;   alias: "花呗"
+;   reconcile: "monthly"
