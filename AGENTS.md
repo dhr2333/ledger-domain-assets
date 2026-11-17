@@ -34,7 +34,7 @@
 
 ## 当前阶段
 
-- MVP-0：Core 初始化 → 账户 alias/reconcile/新增 → 手动记账/审核 → `trans/collect.bean`；只读 BQL。
+- MVP-0：从已有账本开始 → 账户 alias/reconcile/新增 → 手动记账/审核 → `trans/collect.bean`；只读 BQL。初始化不在 MVP-0，后续 DSH 实现。
 - MVP-1：Core 对账 `balance + pad`，写入 `trans/reconciliation.bean`。
 
 ## 排查

@@ -42,7 +42,7 @@ bean-check main.bean
 fava main.bean   # 可选，只读报表
 ```
 
-把 `ledger-domain-core` 的 `root` 指向这个账本目录；DSH 账本面板会通过 Core 读写。初始化由 Core 读本模板完成，DSH 不提供初始化；MVP 不集成 Git。
+把 `ledger-domain-core` 的 `root` 指向这个账本目录；DSH 账本面板会通过 Core 读写。MVP-0 直接使用本模板或其副本；初始化不在 MVP-0，后续由 DSH 实现（先不拆）。MVP 不集成 Git。
 
 ## 账户
 
