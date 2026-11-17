@@ -46,6 +46,8 @@ fava main.bean   # 可选，只读报表
 
 资产/负债没有照搬 Backend 的“自动创建”：Backend 在数据库里创建子账户时自动补父账户，是平台行为；Beancount 不要求父账户 `open`。MVP0 只给最小资产/负债集，新增银行卡/信用卡在 `account/assets.bean` / `account/liabilities.bean` 里 setup，不做运行时自动创建。
 
+`reconcile` metadata 只出现在资产/负债账户；支出/收入/权益不参与对账，也不配 `reconcile`。
+
 需要新账户时，在对应 `account/*.bean` 里按同样的 `open` 格式添加；账户名沿用
 Beancount-Trans-Assets 的科目树，例如 `Assets:Savings:Bank:Ningbo`。
 
