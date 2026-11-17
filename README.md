@@ -50,6 +50,12 @@ Beancount-Trans-Assets 的科目树，例如 `Assets:Savings:Bank:Ningbo`。
 账户的 `open` 日期目前是模板创建日（2026-11-17）。首次使用时把它改成你真正开始
 记账的日期；否则对账周期会从 2026-11-17 起算，历史账户可能显示逾期。
 
+## 状态
+
+本模板按“Core 只写 `trans/main.bean`”的目标模型建立。当前 `ledger-domain-core`
+仍按 `YYYY/MM.bean` 分月写入，下一步需要把 `target.py` / `drafts.py` 的目标文件
+切到 `trans/main.bean`；在切换完成前，面板手动记账会报 `year_not_managed`。
+
 ## 写入规则
 
 - **不要手动编辑 `trans/main.bean`**；Core 的草稿审批、对账 `balance` / `pad` 都会追加到这里。
