@@ -27,6 +27,15 @@
 └── LICENSE
 ```
 
+## 为什么 `trans/` 必须提交
+
+`main.bean` include `trans/main.bean`，后者再 include `collect.bean` 与
+`reconciliation.bean`。如果这三个文件不在 Git 里，fresh clone 后 include 会失败，
+`bean-check` 直接报文件不存在；同时 `collect.bean` / `reconciliation.bean` 是交易与
+对账的唯一真相，不提交就等于不做版本和备份。
+
+所以 `.gitignore` 不忽略 `trans/`；三个文件即使暂时为空，也带注释头一起提交。
+
 ## 使用
 
 ```bash
