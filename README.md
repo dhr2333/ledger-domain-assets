@@ -22,15 +22,20 @@
 │   ├── main.bean          # 只 include collect + reconciliation
 │   ├── collect.bean       # 交易条目（Core 写）
 │   └── reconciliation.bean # balance / pad（Core 写）
-├── document/              # 单据附件目录
 ├── AGENTS.md              # Agent 写入规则
 └── LICENSE
 ```
 
-## Git 暂不考虑
+## Git 可选
 
-MVP 暂不集成 Git。账本目录直接放在本地，由文件系统/网盘/其他方式备份；Core 与 DSH
-不依赖 `.git`。模板仓库自身的 Git 只用于分发，不代表用户账本必须用 Git。
+账本目录就是普通目录，**用户用 Git 完全没问题**：`.bean` 都是纯文本，Core 与 DSH
+都不依赖 `.git`，有没有 Git 功能一致。模板自带的 `.gitignore` 已经忽略 `.ledger/`、
+`.venv/` 运行态；`trans/collect.bean` 与 `trans/reconciliation.bean` 是账本真相，
+**必须被跟踪**，不要加入忽略列表。
+
+当前没有打通的是 Git 与操作流程的集成：Core 不会自动 `git add/commit/push`，面板也不提供
+提交、回滚、冲突处理。提交节奏、分支与冲突由用户自己负责；对账历史在 `.ledger/`，
+不进 Git，重建时按账本生成简版。
 
 `trans/main.bean`、`collect.bean`、`reconciliation.bean` 仍必须存在并被 include；
 它们即使暂时为空，也带注释头一起保留。
@@ -42,8 +47,7 @@ bean-check main.bean
 fava main.bean   # 可选，只读报表
 ```
 
-把 `ledger-domain-core` 的 `root` 指向这个账本目录；DSH 账本面板会通过 Core 读写。MVP-0 直接使用本模板或其副本；初始化不在 MVP-0，后续由 DSH 实现（先不拆）。MVP 不集成 Git。
-
+把 `ledger-domain-core` 的 `root` 指向这个账本目录；DSH 账本面板会通过 Core 读写。新账本初始化由 DSH 插件实现：复制模板到 staging → `bean-check` → 原子 rename；也可以手工复制本模板，再把 Core / 面板的 `root` 指向它。
 ## 账户
 
 起步账户：
@@ -65,15 +69,19 @@ fava main.bean   # 可选，只读报表
 Beancount-Trans-Assets 的科目树：中国银行默认 `Assets:Savings:Bank:BOC`，
 同一家银行多张卡时在 `BOC` 后接卡号后四位，例如 `Assets:Savings:Bank:BOC0814`。
 
-账户的 `open` 日期目前是模板创建日（2026-11-17）。初始化账本时按真实起始日调整；
+账户的 `open` 日期目前是模板创建日（2026-11-17）。DSH 创建账本时不会改写开立日；
 运行期不要手改，后续由 Core 的账户接口处理。
 
 ## 状态
 
-本模板按“Core 负责整个账本写入、条目/对账分文件”的目标模型建立。
-当前 `ledger-domain-core` 仍按 `YYYY/MM.bean` 分月写入，下一步需要把
-`target.py` / `drafts.py` 切换到 `trans/collect.bean` 与
-`trans/reconciliation.bean`；在切换完成前，面板手动记账会报 `year_not_managed`。
+模板与 Core 的写入目标已经对齐：交易写 `trans/collect.bean`，对账写
+`trans/reconciliation.bean`，`trans/main.bean` 只 include 这两个文件；Core 的
+MVP-0 / MVP-1 已按此实现，`bean-check main.bean` 通过。
+
+当前模板共 55 个账户（资产 6、负债 1、支出 29、收入 17、权益 2），全部带
+`alias`；只预置「余额宝」「零钱通」按天对账。新账本初始化由 DSH 插件实现：
+复制模板到 staging → `bean-check` → 原子 rename；也可手工复制本模板，再把
+Core / 面板的 `root` 指向它。
 
 ## 写入规则
 
