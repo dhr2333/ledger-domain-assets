@@ -10,7 +10,6 @@
 ; 1. 账本元数据
 option "title" "我的账本"
 option "operating_currency" "CNY"
-option "documents" "document"
 
 2010-01-01 custom "fava-option" "language" "zh_CN"
 2010-01-01 custom "fava-option" "auto-reload" "true"
