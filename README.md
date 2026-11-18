@@ -58,6 +58,8 @@ fava main.bean   # 可选，只读报表
 
 `reconcile` metadata 只出现在资产/负债账户；支出/收入/权益不参与对账，也不配 `reconcile`。
 
+模板中所有账户都带唯一 `alias`（含支出/收入），面板默认显示中文别名；新增账户时也应补 alias，避免显示 canonical 名称。
+
 账户 alias / reconcile 由 DSH 账户页调用 Core `metadata` 编辑。
 需要新账户时走 Core 的 account-open（MVP-0）；账户名沿用
 Beancount-Trans-Assets 的科目树，例如 `Assets:Savings:Bank:Ningbo`。
