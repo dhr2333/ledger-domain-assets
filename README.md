@@ -48,21 +48,22 @@ fava main.bean   # 可选，只读报表
 
 起步账户：
 
-- 资产（6）：现金、工资卡、支付宝、余额宝、微信、零钱通
-- 负债（1）：信用卡
+- 资产（6）：现金、中国银行、支付宝、余额宝、微信、零钱通
+- 负债（1）：招商银行
 - 支出（29）：使用 Assets 的完整支出科目树
 - 收入（17）：使用 Assets 的完整收入科目树
 - 权益（2）：期初余额、调整
 
 资产/负债没有照搬 Backend 的“自动创建”：Backend 在数据库里创建子账户时自动补父账户，是平台行为；Beancount 不要求父账户 `open`。MVP0 只给最小资产/负债集；新增银行卡/信用卡走 Core 的 account-open（MVP-0），不在运行期手工加，也不做自动创建。
 
-`reconcile` metadata 只出现在资产/负债账户；支出/收入/权益不参与对账，也不配 `reconcile`。
+`reconcile` metadata 只出现在资产/负债账户；默认只给「余额宝」「零钱通」配置按天对账，其他账户不预置，需要时在账户页开启。支出/收入/权益不参与对账，也不配 `reconcile`。
 
 模板中所有账户都带唯一 `alias`（含支出/收入），面板默认显示中文别名；新增账户时也应补 alias，避免显示 canonical 名称。
 
 账户 alias / reconcile 由 DSH 账户页调用 Core `metadata` 编辑。
-需要新账户时走 Core 的 account-open（MVP-0）；账户名沿用
-Beancount-Trans-Assets 的科目树，例如 `Assets:Savings:Bank:Ningbo`。
+需要新账户时走 Core 的 account-open（MVP-0）；银行账户沿用
+Beancount-Trans-Assets 的科目树：中国银行默认 `Assets:Savings:Bank:BOC`，
+同一家银行多张卡时在 `BOC` 后接卡号后四位，例如 `Assets:Savings:Bank:BOC0814`。
 
 账户的 `open` 日期目前是模板创建日（2026-11-17）。初始化账本时按真实起始日调整；
 运行期不要手改，后续由 Core 的账户接口处理。
