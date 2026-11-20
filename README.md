@@ -1,6 +1,6 @@
 # ledger-domain-assets
 
-`ledger-domain-core` 的本地 Beancount 账本模板。科目命名沿用
+`beancount-guard` 的本地 Beancount 账本模板。科目命名沿用
 [Beancount-Trans-Assets](https://github.com/Beancount-Trans/Beancount-Trans-Assets)，
 并按 Core 的写入模型调整：Core 是唯一写者，账户全部显式声明，不启用隐式账户。
 

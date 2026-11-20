@@ -1,5 +1,5 @@
 ; ledger-domain-assets
-; 本地 Beancount 账本模板，供 ledger-domain-core 使用。
+; 本地 Beancount 账本模板，供 beancount-guard 使用。
 ;
 ; 写入规则：
 ; - Core 负责整个账本；交易追加到 trans/collect.bean，对账追加到 trans/reconciliation.bean。

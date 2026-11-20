@@ -1,2 +1,2 @@
-; 对账写入目标：balance / pad 由 ledger-domain-core 追加。
+; 对账写入目标：balance / pad 由 beancount-guard 追加。
 ; 不要手动编辑。

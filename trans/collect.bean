@@ -1,2 +1,2 @@
 ; 交易条目写入目标。
-; 由 ledger-domain-core 追加；不要手动编辑。
+; 由 beancount-guard 追加；不要手动编辑。

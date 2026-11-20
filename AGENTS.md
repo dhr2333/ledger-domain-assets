@@ -6,7 +6,7 @@
 
 ## 唯一写者
 
-- **`ledger-domain-core` 负责整个账本的写入。**
+- **`beancount-guard` 负责整个账本的写入。**
 - 交易追加到 `trans/collect.bean`；`balance` / `pad` 追加到 `trans/reconciliation.bean`。
 - `trans/main.bean` 只 include 这两个文件，不写交易。
 - `main.bean` / `account/*.bean` 的结构与账户变更也由 Core 写。
