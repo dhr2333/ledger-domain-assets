@@ -1,0 +1,45 @@
+name: "Bug report / 缺陷报告"
+description: "Template content, structure or ledger initialization is wrong / 模板内容、结构或建账初始化不符合预期"
+title: "[bug] "
+labels: ["type:fix"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This repository is the ledger template used by `beancount-guard` and the `dsh-ledger` plugin.
+        **Do not paste real statements or account numbers.**
+        本仓库是 `beancount-guard` 与 `dsh-ledger` 插件使用的账本模板；**请勿粘贴真实账单与账号**。
+  - type: dropdown
+    id: area
+    attributes:
+      label: "Affected area / 影响范围"
+      options:
+        - "Account tree / 科目树"
+        - "trans entries / trans 条目"
+        - "main.bean includes / main.bean 引用结构"
+        - "Template AGENTS.md / 模板 AGENTS.md"
+        - "Ledger initialization / 建账初始化"
+        - "Other / 其他"
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: "Current behavior / 当前表现"
+      description: "What the template does now / 模板现在是什么行为"
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Expected behavior / 期望表现"
+    validations:
+      required: true
+  - type: textarea
+    id: reference
+    attributes:
+      label: "Reproduction or reference / 复现或引用"
+      description: "Steps, a .bean snippet, or the consumer that depends on it (dsh-ledger init, vendor, other) / 步骤、.bean 片段，或依赖它的消费方"
+    validations:
+      required: false
