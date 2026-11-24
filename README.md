@@ -14,6 +14,7 @@
 │   ├── main.bean           # 只 include 下面两个文件
 │   ├── collect.bean        # 交易（Core 写）
 │   └── reconciliation.bean # balance / pad（Core 写）
+├── documents/              # 报告与原始账单（gitignore）
 ├── AGENTS.md               # Agent 写入规则
 └── LICENSE
 ```
@@ -31,13 +32,14 @@ fava main.bean   # 可选，只读报表
 
 ## 账户
 
-- 55 个账户：资产 6、负债 1、支出 29、收入 17、权益 2，全部带唯一 `alias`；
+- 53 个账户：资产 5、支出 29、收入 17、权益 2，全部带唯一 `alias`；
+- 模板账户统一起始日 `2000-01-01`：这是「账本开始跟踪」的日期，不是银行账户的真实开立日；历史账单导入不再必然触发开立日调整。已有账本不受影响；
 - 只有资产/负债参与对账；默认「余额宝」「零钱通」按天，其他在账户页开启；
-- 新账户走 Core 的 `account-open`；银行账户沿用 Assets 科目树，例如 `Assets:Savings:Bank:BOC0814`。
+- 模板不预置银行储蓄卡/信用卡账户：新账户走 Core 的 `account-open`，银行账户沿用 Assets 科目树，例如 `Assets:Savings:Bank:BOC0814`。
 
 ## Git
 
-模板自带 `.gitignore` 忽略 `.ledger/`、`.venv/`；`trans/collect.bean` 与 `trans/reconciliation.bean` 必须跟踪。Core 不会自动 `git add/commit/push`，提交节奏由用户负责。
+模板自带 `.gitignore` 忽略 `.ledger/`、`.venv/`、`documents/`；`trans/collect.bean` 与 `trans/reconciliation.bean` 必须跟踪。Core 不会自动 `git add/commit/push`，提交节奏由用户负责。
 
 ## 写入规则
 
@@ -45,6 +47,7 @@ fava main.bean   # 可选，只读报表
 - 交易追加到 `trans/collect.bean`，对账 `balance` / `pad` 追加到 `trans/reconciliation.bean`；
 - `main.bean` / `account/*.bean` 的结构与账户变更也走 Core；
 - 交易先入草稿队列，再由人在 DSH 面板批准；
+- 条目 metadata（`time` / `uuid` / `status` 等）随草稿提交，由 Core 写入；可选，不回填历史；
 - Agent 规则见 [AGENTS.md](AGENTS.md)。
 
 ## License

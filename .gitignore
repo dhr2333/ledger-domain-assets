@@ -1,4 +1,5 @@
 .ledger/
+documents/
 .venv/
 venv/
 __pycache__/

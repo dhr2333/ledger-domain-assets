@@ -2,73 +2,73 @@
 ; 对于教育、育儿、宠物、装修等跨多个账户的类目，使用标签记录
 
 ; 文化休闲
-2026-11-17 open Expenses:Culture  ; 非实物消费/服务
+2000-01-01 open Expenses:Culture  ; 非实物消费/服务
   alias: "文化休闲"
-2026-11-17 open Expenses:Culture:Travel CNY  ; 酒店旅游(门票、酒店)，完整旅游开销以标签形式记录
+2000-01-01 open Expenses:Culture:Travel CNY  ; 酒店旅游(门票、酒店)，完整旅游开销以标签形式记录
   alias: "酒店旅游"
-2026-11-17 open Expenses:Culture:Entertainment CNY,TOKEN  ; 娱乐活动
+2000-01-01 open Expenses:Culture:Entertainment CNY,TOKEN  ; 娱乐活动
   alias: "娱乐活动"
-2026-11-17 open Expenses:Culture:Subscription CNY,USD,COIN ; 订阅服务(网易云音乐/华为/有道云笔记)
+2000-01-01 open Expenses:Culture:Subscription CNY,USD,COIN ; 订阅服务(网易云音乐/华为/有道云笔记)
   alias: "订阅服务"
-2026-11-17 open Expenses:Culture:Relationship CNY  ; 人情往来
+2000-01-01 open Expenses:Culture:Relationship CNY  ; 人情往来
   alias: "人情往来"
 
 ; 财务金融
-2026-11-17 open Expenses:Finance CNY  ; 投资以`Income:Investment`记录
+2000-01-01 open Expenses:Finance CNY  ; 投资以`Income:Investment`记录
   alias: "财务金融"
-2026-11-17 open Expenses:Finance:Commission CNY,USD  ; 金融中介(手续费/贷款利息等)
+2000-01-01 open Expenses:Finance:Commission CNY,USD  ; 金融中介(手续费/贷款利息等)
   alias: "金融手续费"
-2026-11-17 open Expenses:Finance:Fine CNY  ; 罚款
+2000-01-01 open Expenses:Finance:Fine CNY  ; 罚款
   alias: "罚款"
-2026-11-17 open Expenses:Finance:Insurance CNY  ;含（社会保险/商业保险/个人所得税）
+2000-01-01 open Expenses:Finance:Insurance CNY  ;含（社会保险/商业保险/个人所得税）
   alias: "保险税费"
 
 ; 餐饮美食
-2026-11-17 open Expenses:Food CNY
+2000-01-01 open Expenses:Food CNY
   alias: "餐饮美食"
-2026-11-17 open Expenses:Food:Breakfast CNY  ; 早餐
+2000-01-01 open Expenses:Food:Breakfast CNY  ; 早餐
   alias: "早餐"
-2026-11-17 open Expenses:Food:Lunch CNY  ; 午餐
+2000-01-01 open Expenses:Food:Lunch CNY  ; 午餐
   alias: "午餐"
-2026-11-17 open Expenses:Food:Dinner CNY  ; 晚餐
+2000-01-01 open Expenses:Food:Dinner CNY  ; 晚餐
   alias: "晚餐"
-2026-11-17 open Expenses:Food:DrinkFruit CNY ; 饮料水果
+2000-01-01 open Expenses:Food:DrinkFruit CNY ; 饮料水果
   alias: "饮料水果"
 
 ; 医疗健康
-2026-11-17 open Expenses:Health
+2000-01-01 open Expenses:Health
   alias: "医疗健康"
-2026-11-17 open Expenses:Health:Medical ; 直接医疗费用（门诊/挂号/体检/药品/疫苗/治疗费等）
+2000-01-01 open Expenses:Health:Medical ; 直接医疗费用（门诊/挂号/体检/药品/疫苗/治疗费等）
   alias: "医疗"
-2026-11-17 open Expenses:Health:Equipment CNY ; 实物医疗设备/器械资产（口罩/血压计/按摩仪/眼药水等）
+2000-01-01 open Expenses:Health:Equipment CNY ; 实物医疗设备/器械资产（口罩/血压计/按摩仪/眼药水等）
   alias: "医疗设备"
 
 ; 居家生活
-2026-11-17 open Expenses:Home
+2000-01-01 open Expenses:Home
   alias: "居家生活"
-2026-11-17 open Expenses:Home:Rent CNY  ; 房租/房贷
+2000-01-01 open Expenses:Home:Rent CNY  ; 房租/房贷
   alias: "房租"
-2026-11-17 open Expenses:Home:Utilities CNY,COIN  ; 公共事业(水/电/气/网/物业/物流等)
+2000-01-01 open Expenses:Home:Utilities CNY,COIN  ; 公共事业(水/电/气/网/物业/物流等)
   alias: "公共事业"
 
 ; 购物消费
-2026-11-17 open Expenses:Shopping CNY  ; 实物消费
+2000-01-01 open Expenses:Shopping CNY  ; 实物消费
   alias: "购物消费"
-2026-11-17 open Expenses:Shopping:Clothing CNY ; 服饰鞋包
+2000-01-01 open Expenses:Shopping:Clothing CNY ; 服饰鞋包
   alias: "服饰鞋包"
-2026-11-17 open Expenses:Shopping:Digital CNY ; 数码电器
+2000-01-01 open Expenses:Shopping:Digital CNY ; 数码电器
   alias: "数码电器"
-2026-11-17 open Expenses:Shopping:Daily CNY  ; 日用百货（家庭共用消耗品：纸巾、垃圾袋、清洁剂、洗衣液等）
+2000-01-01 open Expenses:Shopping:Daily CNY  ; 日用百货（家庭共用消耗品：纸巾、垃圾袋、清洁剂、洗衣液等）
   alias: "日用百货"
-2026-11-17 open Expenses:Shopping:PersonalCare CNY ; 个人护理（私人用品消耗品：牙膏、洗发水、护肤品）
+2000-01-01 open Expenses:Shopping:PersonalCare CNY ; 个人护理（私人用品消耗品：牙膏、洗发水、护肤品）
   alias: "个人护理"
 
 ; 交通运输
-2026-11-17 open Expenses:TransPort CNY
+2000-01-01 open Expenses:TransPort CNY
   alias: "交通运输"
-2026-11-17 open Expenses:TransPort:Public CNY ; 公共交通(飞机/高铁/打车/公交/地铁/高速等)
+2000-01-01 open Expenses:TransPort:Public CNY ; 公共交通(飞机/高铁/打车/公交/地铁/高速等)
   alias: "公共交通"
-2026-11-17 open Expenses:TransPort:Private CNY ; 私家车的所有费用
+2000-01-01 open Expenses:TransPort:Private CNY ; 私家车的所有费用
   alias: "私家车"
-2026-11-17 open Expenses:TransPort:Private:Park CNY ; 停车费
+2000-01-01 open Expenses:TransPort:Private:Park CNY ; 停车费
   alias: "停车费"

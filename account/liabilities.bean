@@ -1,9 +1,6 @@
-; 负债。起步只保留一张招商银行信用卡；同银行多张卡用 CMB<卡号后四位> 扩展。
+; 负债。模板不预置信用卡；通过 account-open 添加，同一家银行多张卡用 CMB<卡号后四位> 扩展。
 
-2026-11-17 open Liabilities:CreditCard:Bank:CMB CNY
-  alias: "招商银行"
-
-; 可选：同银行第二张卡、支付宝花呗/抖音月付等
+; 例如：
 ; 2000-01-01 open Liabilities:CreditCard:Bank:CMB0814 CNY
 ;   alias: "招商银行 0814"
 ;
