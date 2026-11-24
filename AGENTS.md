@@ -6,7 +6,7 @@
 
 - `beancount-guard`（Core）是唯一写者：交易追加到 `trans/collect.bean`，`balance` / `pad` 追加到 `trans/reconciliation.bean`；`main.bean` / `account/*.bean` 的结构变更也由 Core 写。
 - 禁止直接编辑 `main.bean`、`account/*.bean`、`trans/*.bean`、`.ledger/*`。初始模板创建之后，所有 `.bean` 写入都走 Core。
-- 你只能提交提案（草稿、结构操作）；批准、驳回、冲销只在面板里发生。
+- 你只能提交提案（草稿、结构操作）；批准、驳回只在面板里发生。
 
 ## 导入：先登记，再解析，最后核对
 
